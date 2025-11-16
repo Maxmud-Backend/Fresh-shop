@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ product.title }}
+{% endblock title %}
+
+
+
+{% block main %}
+
+
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Shop Detail</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active">Shop Detail </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <!-- Start Shop Detail  -->
+<div class="shop-detail-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-lg-5 col-md-6">
+                <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        {% for image in product.images.all %}
+                        <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                            <img class="d-block w-100" src="{{ image.image.url }}" alt="{{ forloop.counter }}">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#carousel-example-1" role="button" data-slide="prev">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel-example-1" role="button" data-slide="next">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-7 col-lg-7 col-md-6">
+                <div class="single-product-details">
+                    <h2>{{ product.title }}</h2>
+                    <h5>{{ product.price }}</h5>
+                    <p class="available-stock">
+                        <span>More than 20 available / <a href="#">8 sold</a></span>
+                    </p>
+                    <h4>Short Description:</h4>
+                    <p>{{ product.description }}</p>
+
+                    <ul>
+                        <li>
+                            <div class="form-group quantity-box">
+                                <label class="control-label">Quantity</label>
+                                <input class="form-control" value="0" min="0" max="20" type="number">
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="price-box-bar">
+                        <div class="cart-and-bay-btn">
+                            <a class="btn hvr-hover" data-fancybox-close="" href="#">Buy New</a>
+                            <a class="btn hvr-hover" data-fancybox-close="" href="#">Add to cart</a>
+                        </div>
+                    </div>
+
+                    <div class="add-to-btn">
+                        <div class="add-comp">
+                            <a class="btn hvr-hover" href="#"><i class="fas fa-heart"></i> Add to wishlist</a>
+                            <a class="btn hvr-hover" href="#"><i class="fas fa-sync-alt"></i> Add to Compare</a>
+                        </div>
+                        <div class="share-bar">
+                            <a class="btn hvr-hover" href="#"><i class="fab fa-facebook"></i></a>
+                            <a class="btn hvr-hover" href="#"><i class="fab fa-google-plus"></i></a>
+                            <a class="btn hvr-hover" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn hvr-hover" href="#"><i class="fab fa-pinterest-p"></i></a>
+                            <a class="btn hvr-hover" href="#"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row my-5">
+            <div class="card card-outline-secondary my-4 w-100">
+                <div class="card-header">
+                    <h2>Product Reviews</h2>
+                </div>
+                <div class="card-body">
+                    {% for comment in comments %}
+                    <div class="media mb-3">
+                        <div class="mr-2">
+                            <img class="rounded-circle border p-1"
+                                 src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                                 alt="user" width="64" height="64">
+                        </div>
+                        <div class="media-body">
+                            <p>{{ comment.text }}</p>
+                            <small class="text-muted">
+                                Posted by <strong>{{ comment.user.username }}</strong>
+                                on {{ comment.created_at|date:"d M Y H:i" }}
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                    {% empty %}
+                    <p>Hozircha izoh yo‘q </p>
+                    {% endfor %}
+
+                    {% if user.is_authenticated %}
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn hvr-hover">Izoh qoldirish</button>
+                    </form>
+                    {% else %}
+                    <p class="mt-3">
+                        Izoh yozish uchun <a href="{% url 'Login' %}">login</a> qiling.
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock main %}
+
+
+
+

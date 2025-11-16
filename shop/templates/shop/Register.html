@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+Register
+{% endblock title %}
+{% block main %}
+<div class="container">
+    <form action="{% url 'Register' %}" method="post" enctype="multipart/form-data"
+          class="col-5 mx-auto d-flex flex-column">
+       <h3 class="text-center">REGISTER</h3>
+        {% csrf_token %}
+        {{ forms.as_p }}
+        <button class="btn btn-warning" type="submit" >Register</button>
+    </form>
+</div>
+{% endblock main %}
+
