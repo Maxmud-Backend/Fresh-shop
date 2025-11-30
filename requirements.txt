@@ -16,13 +16,13 @@ deep-translator==1.11.4
 Django==4.2.7
 djangorestframework==3.16.1
 frozenlist==1.7.0
-googletrans==4.0.0rc1
+googletrans==4.0.0-rc2
 h11==0.16.0
 h2==3.2.0
 hpack==3.0.0
 hstspreload==2025.1.1
 httpcore
-httpx==0.13.3
+httpx==0.28.1
 hyperframe==5.2.0
 idna==2.10
 iniconfig==2.1.0
@@ -51,5 +51,6 @@ tzdata==2025.2
 urllib3==2.5.0
 wheel==0.45.1
 yarl==1.20.1
+
 
 
